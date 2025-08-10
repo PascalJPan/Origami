@@ -6,7 +6,7 @@ import re
 
 from model import load_model, predict_secondary_structure
 
-AA_RE = re.compile(r"[ACDEFGHIKLMNPQRSTVWY]")  # 20 AAs
+AA_RE = re.compile(r"[ACDEFGHIKLMNPQRSTVWYX]")
 
 class PredictRequest(BaseModel):
     sequence: str = Field(..., min_length=1)
