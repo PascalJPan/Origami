@@ -11,6 +11,8 @@ __pycache__/
 # OS
 .DS_Store
 
+esm_model.ipynb
+
 # Large / data / models
 data/
 *.npy
