@@ -44,9 +44,11 @@ def clean_sequence(raw: str) -> str:
 @app.post("/predict", response_model=PredictResponse)
 def predict(req: PredictRequest):
     seq = clean_sequence(req.sequence)
+    print("Cleaned sequence:", seq)  # Debug print
     if not seq:
         raise HTTPException(status_code=400, detail="No valid amino acids.")
     states = predict_secondary_structure(seq)
+    print("Predicted states:", states)  # Debug print
     if len(states) != len(seq):
         raise HTTPException(status_code=500, detail="Model length mismatch.")
     return PredictResponse(sequence=seq, index_start=req.index_start, states=states)

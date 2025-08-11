@@ -15,6 +15,7 @@
   --h: #f38fb0;      /* helix */
   --e: #f3c24d;      /* sheet */
   --c: #8f9bb0;      /* coil  */
+  --n: #000000;      /* not predicted  */
 }
 
 *,
@@ -142,12 +143,22 @@ textarea:focus, .input:focus, .btn:focus-visible {
 .state-H { background: var(--h); }
 .state-E { background: var(--e); }
 .state-C { background: var(--c); }
+.state-N{
+  background: #0e141b;
+  border: 1px dashed #1e2a38;
+  color: var(--muted);
+}
+
+
 
 /* Stats / Footer */
 .stats { display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: baseline; margin-top: 12px; color: var(--muted); }
-.stat strong { color: var(--text); }
 .footer { margin-top: 10px; color: var(--muted); }
 .small { font-size: 12px; }
+
+.helix {color: var(--h)}
+.sheet {color: var(--e)}
+.coil {color: var(--c)}
 
 /* Responsive */
 @media (max-width: 720px) { :root { --cell: 28px; --idxH: 16px; } }

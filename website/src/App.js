@@ -3,10 +3,10 @@ import "./App.css";
 
 // --- constants (keep these OUTSIDE the component) ---
 const API_BASE = process.env.REACT_APP_API_BASE || ""; // empty if using CRA proxy
-const AA_RE = /[ACDEFGHIKLMNPQRSTVWY]/g;
-const DUMMY_SEQ = "ACDEFGHIKLMNPQRSTVWYACDEFGHIKL"; // 30 aa demo
+const AA_RE = /[ACDEFGHIKLMNPQRSTVWYX]/g;
+const DUMMY_SEQ = ""; 
 function generateDummyStates(n) {
-  const pat = ["H","H","H","E","E","C","H","H","C","E"];
+  const pat = ["N"];
   return Array.from({ length: n }, (_, i) => pat[i % pat.length]);
 }
 
@@ -28,8 +28,9 @@ export default function App() {
   const onSeqChange = (e) => {
     const cleaned = cleanSequence(e.target.value);
     setSequence(cleaned);
-    // keep placeholder states in sync until user runs the real model
-    setStates(generateDummyStates(cleaned.length));
+    // Clear the prediction output and error when the sequence changes
+    setStates(generateDummyStates(cleaned.length));  // Reset dummy states for now
+    setError("");  // Clear any existing error message
   };
 
   const onIndexChange = (e) => {
@@ -83,7 +84,7 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
-  const stateClass = (s) => (s === "H" ? "state-H" : s === "E" ? "state-E" : "state-C");
+  const stateClass = (s) => (s === "H" ? "state-H" : s === "E" ? "state-E" : s === "C" ? "state-C" : "state-N");
   const len = Math.min(sequence.length, states.length);
 
   return (
@@ -95,7 +96,7 @@ export default function App() {
         </div>
 
         <p className="subtle">
-          Paste an amino-acid sequence (A,C,D,E,F,G,H,I,K,L,M,N,P,Q,R,S,T,V,W,Y). Up to 1000 residues.
+          Paste an amino-acid sequence. Use X for unkown positions. Up to 1000 residues.
         </p>
 
         <div className="inputs">
@@ -146,13 +147,13 @@ export default function App() {
         </div>
 
         <div className="stats" aria-label="Summary statistics">
-          <div className="stat">Helix (H): <strong>{counts.H}</strong> <span>({Math.round((counts.H / counts.N) * 100)}%)</span></div>
-          <div className="stat">Sheet (E): <strong>{counts.E}</strong> <span>({Math.round((counts.E / counts.N) * 100)}%)</span></div>
-          <div className="stat">Coil (C):  <strong>{counts.C}</strong> <span>({Math.round((counts.C / counts.N) * 100)}%)</span></div>
+          <div className="stat helix">Helix: <strong>{counts.H}</strong> <span>({Math.round((counts.H / counts.N) * 100)}%)</span></div>
+          <div className="stat sheet">Sheet: <strong>{counts.E}</strong> <span>({Math.round((counts.E / counts.N) * 100)}%)</span></div>
+          <div className="stat coil">Coil:  <strong>{counts.C}</strong> <span>({Math.round((counts.C / counts.N) * 100)}%)</span></div>
         </div>
 
         <div className="footer">
-          <span className="small">Demo only — plug your model/API later.</span>
+          <span className="small">The prediction accuracy is expected to be ~70%.</span>
         </div>
       </main>
     </div>
