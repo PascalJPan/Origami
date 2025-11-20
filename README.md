@@ -1,5 +1,7 @@
 # Origami - Mini Secondary Structure Predictor
 
+Test it here: https://pascalpan.com/creations/origami/
+
 Predict protein secondary structure (H/E/C) from an amino acid sequence.
 
 - **Frontend:** React (Create React App), plain CSS (clean, a bit futuristic)
