@@ -17,7 +17,8 @@ class PredictResponse(BaseModel):
     index_start: int
     states: List[str]
 
-app = FastAPI(title="Mini Secondary Structure API")
+app = FastAPI(title="Mini Secondary Structure API",
+                  root_path="/creations/origami/api")
 
 app.add_middleware(
     CORSMiddleware,
